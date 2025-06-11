@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { Joke } from "../types/type"; // Path may need adjustment
+import type { Joke } from "../types/type"; 
 
 interface JokeComponentProps {
   joke: Joke;
@@ -24,16 +24,13 @@ export const JokeComponent: React.FC<JokeComponentProps> = ({
       updateJoke(joke.id, editText.trim());
       setIsEditing(false);
     }
-    // Optional: Add validation feedback here if editText is empty
+
   };
 
   const handleCancelEdit = () => {
     setEditText(joke.joke);
     setIsEditing(false);
   };
-
-  // It's good practice to provide explicit types for buttons if not using a UI library
-  // that handles it, though for this simple case it's usually fine.
 
   return (
     <div className="joke">
@@ -46,10 +43,10 @@ export const JokeComponent: React.FC<JokeComponentProps> = ({
             style={{ width: '100%', marginBottom: '10px', padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }}
             aria-label="Edit joke text"
           />
-          <button type="button" className="btn btn-sm btn-primary" onClick={handleUpdate} style={{ marginRight: '5px' }}>
+          <button type="button"  onClick={handleUpdate} style={{ marginRight: '5px' }}>
             Save
           </button>
-          <button type="button" className="btn btn-sm btn-secondary" onClick={handleCancelEdit}>
+          <button type="button"  onClick={handleCancelEdit}>
             Cancel
           </button>
         </div>

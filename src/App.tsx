@@ -3,13 +3,10 @@ import { useReducer } from 'react';
 import { JokeComponent } from './components/JokeComponent';
 import jokesReducer from './reducer/jokeReduces'; 
 import type { Joke } from './types/type'; 
-
-// Import react-hook-form and yup
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 
-// Schema and Type for the Add Joke Form
 const AddJokeSchema = yup.object({
   jokeText: yup.string()
     .required("Joke text cannot be empty!")
@@ -28,10 +25,10 @@ function App() {
     { id: 3, joke: "Why don't sharks like to eat clowns? Because they taste funny!!!", rate: 10 }
   ];
 
-  // Use useReducer
+
   const [jokes, dispatch] = useReducer(jokesReducer, InitialJokes);
 
-  // React Hook Form Setup for Add Joke
+  
   const {
     register,
     handleSubmit,
@@ -44,9 +41,7 @@ function App() {
     }
   });
 
-  // --- Dispatcher Functions ---
-
-  // CREATE: Add a new joke
+ 
   const onAddJokeSubmit: SubmitHandler<AddJokeFormInput> = (data) => {
     dispatch({
       type: 'ADD_JOKE',
@@ -56,36 +51,34 @@ function App() {
         rate: 0
       }
     });
-    reset(); // Reset the form fields
+    reset(); 
   };
 
-  // UPDATE: Increase rate
+  
   const increaseRates = (id: number) => {
     dispatch({ type: 'INCREASE_JOKES_LIKES', id });
   };
 
-  // UPDATE: Decrease rate
+  
   const decreaseRates = (id: number) => {
     dispatch({ type: 'DECREASE_JOKES_LIKES', id });
   };
 
-  // DELETE: Delete a joke
+  
   const deleteJokeHandler = (id: number) => {
     if (window.confirm("Are you sure you want to delete this joke?")) {
       dispatch({ type: 'DELETE_JOKE', id });
     }
   };
 
-  // UPDATE: Update joke text
+  
   const updateJokeHandler = (id: number, updatedJokeText: string) => {
     dispatch({ type: 'UPDATE_JOKE', id, updatedJokeText });
   };
 
-  // Sort jokes for display (e.g., by rate or by most recent)
-  // Creating a new sorted array for rendering without mutating state directly
+  
   const sortedJokes = [...jokes].sort((a, b) => b.rate - a.rate);
-  // Or by ID (most recent if IDs are sequential like Date.now())
-  // const sortedJokes = [...jokes].sort((a, b) => b.id - a.id);
+
 
 
   return (
